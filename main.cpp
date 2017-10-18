@@ -14,15 +14,15 @@ const char* password = "password";
 DHT dht(DHTPIN, DHTTYPE);
 ESP8266WebServer server(80);
 
-/*
-    Return the JSON string with the received data from the sensor
-    Response example:
-    {
-        "temperature": "23.00",
-        "humudity": "40.00",
-        "error": ""
-    }
-*/
+/*  
+ *  Generates the JSON string with the received data from the sensor
+ *  Response example:
+ *  {
+ *    "temperature": "23.00",
+ *    "humudity": "40.00",
+ *    "error": ""
+ *  }
+ */
 String jsonGenerator(float tmp=0.0, float hum=0.0, String err="null") {
     String msg = "{\"temperature\": \"";
     msg += tmp;
@@ -56,6 +56,7 @@ void handleNotFound(){
 void setup(){
     dht.begin();
     Serial.begin(115200);
+    WiFi.mode(WIFI_STA);  // set ESP in client mode
     WiFi.begin(ssid, password);
     Serial.println("");
 
